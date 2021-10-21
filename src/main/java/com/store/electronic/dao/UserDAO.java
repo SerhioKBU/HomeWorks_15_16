@@ -1,21 +1,18 @@
 package com.store.electronic.dao;
 
 import com.store.electronic.entity.User;
+import com.store.electronic.utils.JdbcConnect;
 import lombok.SneakyThrows;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.store.electronic.utils.jdbcConnect.getConnection;
-
-
+import static com.store.electronic.utils.JdbcConnect.getConnection;
 
 public class UserDAO extends EntityDAO<User> {
     public static final String INSERT_DATA = "INSERT into user(UserName, Password, Email) VALUES (?, ?)";
-    public static final String SELECT_FIND_BY_NAME  = "SELECT id, username, password, email FROM users where username = ?";
-    public static final String SELECT_FIND_BY_ID = "SELECT id, username, password, email FROM users where id = ?";
-    public static final String SELECT_ALL_DATA = "SELECT * FROM user";
+    public static final String SELECT_FIND_BY_NAME  = "SELECT id, username, password,  FROM users WHERE username = ?";
+    public static final String SELECT_FIND_BY_ID = "SELECT id, username, password, email FROM users WHERE id = ?";
+    public static final String SELECT_ALL_DATA = "SELECT * FROM users";
     public static final String DELETE_DATA = "DELETE FROM user WHERE id = ?";
 
 
@@ -24,7 +21,7 @@ public class UserDAO extends EntityDAO<User> {
     public User findByUsername(String username) throws DaoException {
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement =
-                     connection.prepareStatement("select id, username, password from users where username = ?");
+                     connection.prepareStatement(SELECT_FIND_BY_NAME)
         ) {
             preparedStatement.setString(1, username);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -48,7 +45,7 @@ public class UserDAO extends EntityDAO<User> {
     public User getById(int id) throws DaoException {
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement
-                     = connection.prepareStatement(SELECT_FIND_BY_ID);
+                     = connection.prepareStatement(SELECT_FIND_BY_ID)
         ) {
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -69,7 +66,7 @@ public class UserDAO extends EntityDAO<User> {
 
     @SneakyThrows
     @Override
-    Integer create(User user) throws DaoException {
+    Integer create(User user) throws  DaoException {
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement =
                      connection.prepareStatement(INSERT_DATA, Statement.RETURN_GENERATED_KEYS)) {

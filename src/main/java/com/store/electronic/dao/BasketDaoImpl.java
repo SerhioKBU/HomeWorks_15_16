@@ -8,7 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
-import static com.store.electronic.utils.jdbcConnect.getConnection;
+import static com.store.electronic.utils.JdbcConnect.getConnection;
 
 public class BasketDaoImpl implements BasketDAO<Basket>{
     private static final String INSERT_BASKET_SQL = "INSERT INTO basket(UserId, ProductId) VALUES(?, ?)";

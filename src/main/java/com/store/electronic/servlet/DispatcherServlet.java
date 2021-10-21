@@ -22,7 +22,8 @@ public class DispatcherServlet extends HttpServlet {
     }
 
     @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void service(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
         Controller controller = controllerFactory.getController(req);
         try {
             ControllerResultDto result = controller.execute(req, resp);
@@ -36,7 +37,7 @@ public class DispatcherServlet extends HttpServlet {
         if (result.isRedirect()) {
             resp.sendRedirect(result.getView());
         } else {
-            String path = String.format("/WEB-INF/jsp/" + result.getView() + ".jsp");
+            String path = "/WEB-INF/jsp/" + result.getView() + ".jsp";
             req.getRequestDispatcher(path).forward(req, resp);
         }
     }

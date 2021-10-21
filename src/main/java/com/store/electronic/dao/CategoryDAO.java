@@ -6,7 +6,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.store.electronic.utils.jdbcConnect.getConnection;
+import static com.store.electronic.utils.JdbcConnect.getConnection;
 
 public class CategoryDAO extends EntityDAO<Category> {
 
@@ -35,7 +35,7 @@ public class CategoryDAO extends EntityDAO<Category> {
         try (
                 Connection connection = getConnection();
                 Statement statement = connection.createStatement();
-                ResultSet resultSet = statement.executeQuery(SELECT_ALL);
+                ResultSet resultSet = statement.executeQuery(SELECT_ALL)
         ) {
             while (resultSet.next()) {
                 Integer id = resultSet.getInt("id");

@@ -7,14 +7,14 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.store.electronic.utils.jdbcConnect.getConnection;
+import static com.store.electronic.utils.JdbcConnect.getConnection;
 
 public class ProductDAO extends EntityDAO<Product> {
     public Product product;
     private static final String INSERT_SQL = "INSERT INTO product" +
             "(CategoryId, name, cost) VALUES(?, ?, ?, ?)";
     private static final String FIND_BY_ID =
-            "select id, CategoryId, Name, Description, Cost from product where id = '?';";
+            "SELECT id, CategoryId, Name, Description, Cost from product WHERE id = '?';";
     public static final String SELECT_ALL_DATA = "SELECT * FROM product";
     public static final String DELETE_DATA = "DELETE FROM note WHERE id = ?";
 
